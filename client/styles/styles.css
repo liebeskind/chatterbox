@@ -66,3 +66,35 @@ body {
     color: green;
     cursor: pointer;
 }
+
+.add {
+    color: green;
+    font-weight: bold;
+    font-size: 18px;
+    width: 10px;
+    height: 10px;
+}
+
+.remove {
+    color: red;
+    font-weight: bold;
+    font-size: 25px;
+    width: 10px;
+    height: 10px;
+}
+
+.add:hover {
+    color: blue;
+    cursor: pointer;
+}
+
+.remove:hover {
+    color: blue;
+    cursor: pointer;
+}
+
+.friends {
+    background: #ADD8E6;
+    color: #B22222;
+    opacity: 0.5;
+}

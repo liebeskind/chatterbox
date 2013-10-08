@@ -3,6 +3,7 @@
 var userName = window.location.search.split('=')[1];
 var currentRoom = 'lobby';
 var roomNames = {'lobby': true};
+var friends = {};
 
 var sendRequest = function(message){
   $.ajax({
@@ -48,8 +49,13 @@ var parseMessages = function(messages) {
       var h = time.getHours();
       var m = time.getMinutes();
       var $message = $('<div>').attr('class', 'message');
+        if (friends[messages[i].username.toString()]) {
+          $message.addClass('friends');
+        }
         $message.append($('<span>').attr('class', 'createdAt').text(h + ':' + m + ' '));
         $message.append($('<span>').attr('class', 'username').text(messages[i].username + ' '));
+        $message.append($('<span>').attr('class', 'add /' + messages[i].username.toString()).text(' + '));
+        $message.append($('<span>').attr('class', 'remove /' + messages[i].username.toString()).text(' - '));
         $message.append($('<span>').attr('class', 'text').text(messages[i].text));
         $('.messages').append($message);
     }
@@ -76,6 +82,16 @@ $(document).on('click', 'button', function() {
 $(document).on('click', '.clickRoom', function() {
   currentRoom = (this.innerHTML);
   $('.roomInput').attr('placeholder', currentRoom);
+});
+
+
+$(document).on('click', '.add', function() {
+  friends[this.className.split('/')[1]] = true;
+});
+
+$(document).on('click', '.remove', function() {
+  delete(friends[this.className.split('/')[1]]);
+  console.log(friends);
 });
 
 }());
