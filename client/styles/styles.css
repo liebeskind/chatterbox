@@ -38,3 +38,31 @@ body {
     color: green;
     line-height: 13px;
 }
+
+.messages {
+    clear: both;
+}
+
+.message {
+    margin-top: 7px;
+    width: 300px;
+    overflow: auto;
+}
+
+.username {
+    font-weight: bold;
+}
+
+.room {
+    width: 100px;
+    position: absolute;
+    top: 151px;
+    left: 600px;
+    overflow: hidden;
+    color: blue;
+}
+
+.clickRoom:hover {
+    color: green;
+    cursor: pointer;
+}

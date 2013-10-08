@@ -40,6 +40,7 @@ var getRequest = function(){
 
 var parseMessages = function(messages) {
   $('.message').remove();
+  $('.clickRoom').remove();
   for (var i = 0; i < messages.length; i++) {
     roomNames[messages[i].roomname] = true;
     if (messages[i].roomname === currentRoom) {
@@ -47,21 +48,35 @@ var parseMessages = function(messages) {
       var h = time.getHours();
       var m = time.getMinutes();
       var $message = $('<div>').attr('class', 'message');
-        $message.append($('<span>').attr('class', 'createdAt').html(h + ':' + m + ' '));
-        $message.append($('<span>').attr('class', 'username').html(messages[i].username + ' '));
-        $message.append($('<span>').attr('class', 'text').html(messages[i].text));
+        $message.append($('<span>').attr('class', 'createdAt').text(h + ':' + m + ' '));
+        $message.append($('<span>').attr('class', 'username').text(messages[i].username + ' '));
+        $message.append($('<span>').attr('class', 'text').text(messages[i].text));
         $('.messages').append($message);
     }
   }
+  _.each(roomNames, function(value, key) {
+    $('.room').append($('<div>').attr('class', 'clickRoom').text(key));
+  });
 };
 
-setInterval(getRequest, 2000);
+setInterval(getRequest, 500);
 
 $(document).on('click', 'button', function() {
-  var submitted = $('input').val();
+  var submitted = $('.userMessage').val();
+  if($('.roomInput').val() !== ''){
+    currentRoom = $('.roomInput').val();
+  }
   var message = {'username': userName, 'text': submitted, 'roomname': currentRoom};
   sendRequest(message);
-  $('input').val('');
+  $('.userMessage').val('');
+  $('.roomInput').attr('placeholder', currentRoom);
+  $('.roomInput').val('');
 });
+
+$(document).on('click', '.clickRoom', function() {
+  currentRoom = (this.innerHTML);
+  $('.roomInput').attr('placeholder', currentRoom);
+});
+
 }());
 
